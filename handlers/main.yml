@@ -1,0 +1,12 @@
+---
+# handlers file for cjsteel.lxd_server
+- name: restart networking
+  service:
+    name: networking
+    state: restarted
+
+- name: restart lxd
+  systemd:
+    name: lxd
+    state: restarted
+    daemon-reload: true

@@ -1,0 +1,25 @@
+---
+
+- name: Create containers
+  lxd_container:
+    name: '{{ item.name }}'
+    state: '{{ item.state | default(omit) }}'
+    source:
+      type: '{{ item.type | default("image") }}'
+      mode: '{{item.mode | default("pull") }}'
+      server: '{{ item.server | default("https://cloud-images.ubuntu.com/releases") }}'
+      protocol: '{{ item.protocal | default("simplestreams") }}'
+      alias: '{{ item.alias }}'
+    profiles: '{{ item.profiles | default(omit) }}'
+    timeout: '{{ item.timeout | default(600) }}'
+    config: '{{ item.config | default(omit) }}'
+    wait_for_ipv4_addresses: '{{ item.wait_for_ipv4_addresses | default(omit)}}'
+    devices: '{{ item.devices | default(omit) }}'
+    url: '{{ item.url| default(lxd_default_url) }}'
+  become: '{{ item.become | default(omit) }}'
+  become_method: '{{ item.become_method | default(omit) }}'
+  become_flags: '{{ item.become_flags | default(omit) }}'
+  become_user: '{{ item.become_user | default(omit) }}'
+  with_items: '{{ lxd_containers }}'
+  register: 'lxd_container_status'
+  changed_when: item.state|default('started') != lxd_container_status.old_state

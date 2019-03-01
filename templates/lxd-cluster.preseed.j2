@@ -1,0 +1,37 @@
+config:
+networks:
+- config:
+    bridge.mode: fan
+    fan.underlay_subnet: auto
+  description: ""
+  managed: false
+  name: lxdfan0
+  type: ""
+storage_pools:
+- config: {}
+  description: ""
+  name: local
+  driver: dir
+profiles:
+- config:
+    security.privileged: "true"
+  description: ""
+  devices:
+    eth0:
+      name: eth0
+      nictype: bridged
+      parent: lxdfan0
+      type: nic
+    root:
+      path: /
+      pool: local
+      type: disk
+  name: default
+#cluster:
+#  server_name: ace-lxd-1
+#  enabled: true
+#  member_config: []
+#  cluster_address: ""
+#  cluster_certificate: ""
+#  server_address: ""
+#  cluster_password: ""
