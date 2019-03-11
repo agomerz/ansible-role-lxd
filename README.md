@@ -34,7 +34,6 @@ password
 new zfs pool, loop
 not adding a remote storage pool (like ceph)
 MASS no
-
 ```
 
 lxc cluster commands examples:
@@ -42,10 +41,7 @@ lxc cluster commands examples:
 ```shell
 lxc cluster list
 lxc cluster show mycluster
-
 ```
-
-
 
 Second node
 
@@ -53,7 +49,6 @@ ALL LXD DATA WILL BE WIPED FROM THE CONNECTING NODE
 
 ```shell
 zfs loop
-
 ```
 
 chec kcluster
@@ -153,15 +148,15 @@ when the node is brought back up everything should get back to normal and the co
 On the remote LXD host:
 
 ```shell
-$ lxc config set core.https_address [::]:8443
-$ lxc config set core.trust_password replace-this-with-a-secure-password
+lxc config set core.https_address [::]:8443
+lxc config set core.trust_password replace-this-with-a-secure-password
 ```
 
 On the local LXD host:
 
 ```shell
-$ lxc config set core.https_address [::]:8443
-$ lxc remote add lxd4 lxd4.example.com
+lxc config set core.https_address [::]:8443
+lxc remote add lxd4 lxd4.example.com
 ```
 
 (replace lxd4.example.com with the hostname of your LXD host, 'lxd4'  can be named whatever you want, you'll need to reference it in the  inventory file)
@@ -181,10 +176,14 @@ molecule --debug login -s lxd
 tests
 
 ```shell
-lxd list
 zpool list
 zfs list
-# lxd init
+```
+
+Container creation check
+
+```shell
+lxd list
 lxc launch ubuntu:18.04 c1
 lxc list
 ```

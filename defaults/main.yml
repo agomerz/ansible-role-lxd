@@ -10,7 +10,6 @@ lxd_extra_packages:
   - criu
   - zfsutils-linux
 
-
 #lxd_config_preseed: 'lxd.preseed.j2'
 lxd_config_preseed: 'lxd-cluster.preseed.j2'
 
