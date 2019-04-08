@@ -1,24 +1,24 @@
 ---
 # tasks file for cjsteel.lxd_server
 
-- name: Install packages
+- name: "Install lxd packages"
   apt:
     name: '{{ lxd_packages }}'
     update_cache: true
 
-- name: Install packages    
+- name: "Install lxd extra packages"
   apt:
     name: '{{ lxd_extra_packages }}'
     state: present
 
-- name: template the LXD preseed file
+- name: "template the LXD preseed file"
   template:
     src: "{{ lxd_config_preseed }}"
     dest: "/tmp/lxd.preseed"
   when: lxd_init|default(false)
   register: lxd_preseed_status
 
-- name: Configure LXD from preseed file
+- name: "Configure LXD from preseed file"
   shell: cat /tmp/lxd.preseed | lxd init --preseed
   args:
     executable: /bin/bash
@@ -34,13 +34,12 @@
   notify: restart networking
   when: lxd_configure_dns is defined and lxd_configure_dns == true
 
-#- name: Get acl status for default pool
-#  shell: zfs get acltype default | grep default | awk '{print $3}'
-#  when: lxd_default_pool_driver == 'zfs' and lxd_init|default(false)
-#  register: lxd_zfs_acl_status
-#  changed_when: lxd_zfs_acl_status.stdout != lxd_default_pool_zfs_acl
+# - name: Get acl status for default pool
+#   shell: zfs get acltype default | grep default | awk '{print $3}'
+#   when: lxd_default_pool_driver == 'zfs' and lxd_init|default(false)
+#   register: lxd_zfs_acl_status
+#   changed_when: lxd_zfs_acl_status.stdout != lxd_default_pool_zfs_acl
 
-#- name: Set acltype for default pool
-#  shell: 'zfs set acltype={{ lxd_default_pool_zfs_acl }} default'
-#  when: lxd_zfs_acl_status is defined and lxd_zfs_acl_status.changed
-
+# - name: Set acltype for default pool
+#   shell: 'zfs set acltype={{ lxd_default_pool_zfs_acl }} default'
+#   when: lxd_zfs_acl_status is defined and lxd_zfs_acl_status.changed

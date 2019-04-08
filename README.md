@@ -1,7 +1,12 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+An Ansible role to configure an LXD server
+
+Roadmap
+-------
+
+* [ROADMAP.md](ROADMAP.md)
 
 Requirements
 ------------
