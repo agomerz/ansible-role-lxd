@@ -3,12 +3,7 @@
 
 lxd_packages:
   - lxd
-  - lxd-client
 
-lxd_extra_packages:
-  - lxd-tools
-  - criu
-  - zfsutils-linux
 
 # lxd_config_preseed: 'lxd.preseed.j2'
 lxd_config_preseed: 'lxd-cluster.preseed.j2'
@@ -25,7 +20,7 @@ lxd_init: true
 
 # lxc init: default pool
 lxd_default_pool_size: 39GB
-lxd_default_pool_driver: zfs
+lxd_default_pool_driver: dir
 lxd_default_pool_zfs_acl: 'off'  # posixacl, noacl, off
 lxd_default_pool_config:
   size: '{{ lxd_default_pool_size }}'

@@ -2,14 +2,8 @@
 # tasks file for cjsteel.lxd_server
 
 - name: "Install lxd packages"
-  apt:
-    name: '{{ lxd_packages }}'
-    update_cache: true
-
-- name: "Install lxd extra packages"
-  apt:
-    name: '{{ lxd_extra_packages }}'
-    state: present
+  snap:
+    name: '{{ lxd_package }}'
 
 - name: "template the LXD preseed file"
   template:
