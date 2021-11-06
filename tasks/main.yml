@@ -3,7 +3,7 @@
 
 - name: "Install lxd packages"
   snap:
-    name: '{{ lxd_package }}'
+    name: '{{ lxd_packages }}'
 
 - name: "template the LXD preseed file"
   template:
